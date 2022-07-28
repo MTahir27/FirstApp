@@ -24,7 +24,7 @@ export default function Login() {
           value={data.password}
           onChangeText={handleChange('password')}
         />
-        <Button onPress={handleSubmit}>Login</Button>
+        <Button onPress={handleSubmit} title="Login" />
       </ScrollView>
     </View>
   );
