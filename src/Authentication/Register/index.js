@@ -8,13 +8,12 @@ export default function Register() {
     password: '',
     confrimPassword: '',
   });
-  const handleChange = event => {
-    const targetField = event.currentTarget;
-    // setData(data => ({...data, [type]: targetField.value}));
+  const handleChange = props => event => {
+    setData(data => ({...data, [props]: event}));
   };
 
   const handleSubmit = () => {
-    alert(data);
+    console.log(data);
   };
   return (
     <View>
@@ -32,12 +31,12 @@ export default function Register() {
         <TextInput
           placeholder="Password"
           value={data.password}
-          onChange={handleChange('password')}
+          onChangeText={handleChange('password')}
         />
         <TextInput
           placeholder="Confirm Password"
           value={data.confrimPassword}
-          onChangeText={handleChange('confirmPassword')}
+          onChangeText={handleChange('confrimPassword')}
         />
         <Button onPress={handleSubmit} title="Register" />
       </ScrollView>
