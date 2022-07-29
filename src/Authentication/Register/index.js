@@ -8,9 +8,9 @@ export default function Register() {
     password: '',
     confrimPassword: '',
   });
-  const handleChange = (type, event) => {
-    const targetField = event.Target;
-    setData(data => ({...data, [type]: targetField.value}));
+  const handleChange = event => {
+    const targetField = event.currentTarget;
+    // setData(data => ({...data, [type]: targetField.value}));
   };
 
   const handleSubmit = () => {

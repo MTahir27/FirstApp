@@ -3,9 +3,9 @@ import {View, ScrollView, TextInput, Button} from 'react-native';
 
 export default function Login() {
   const [data, setData] = useState({email: '', password: ''});
-  const handleChange = (type, event) => {
-    const targetField = event.Target;
-    setData(data => ({...data, [type]: targetField.value}));
+  const handleChange = event => {
+    const targetField = event.currentTarget;
+    // setData(data => ({...data, [type]: targetField.value}));
   };
 
   const handleSubmit = () => {
