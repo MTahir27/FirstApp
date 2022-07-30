@@ -8,13 +8,18 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 
-export default function ForgetPassword() {
+export default function ForgetPassword({navigation}) {
   const [data, setData] = useState({email: ''});
   const handleChange = prop => event => {
     setData(data => ({...data, [prop]: event}));
   };
   const handleSubmit = () => {
-    console.log('Data', data);
+    if (data.email) {
+      navigation.navigate('Login');
+    } else {
+      alert('Fill Email Field');
+    }
+    setData(() => ({...data, email: ''}));
   };
   return (
     <View>

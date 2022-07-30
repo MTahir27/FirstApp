@@ -1,17 +1,22 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {View, StyleSheet} from 'react-native';
 import Header from './src/Components/Header';
 import Footer from './src/Components/Footer';
-import Routes from './src/Routes';
+import AppNavigation from './src/Navigation';
+import AuthenticationContextProvider from './src/Context/AuthenticationContext';
 export default function App() {
   return (
-    <View style={styles.pageLayout}>
-      <Header />
-      <View style={styles.container}>
-        <Routes />
-      </View>
-      <Footer />
-    </View>
+    <AuthenticationContextProvider>
+      <NavigationContainer>
+        <View style={styles.pageLayout}>
+          <View style={styles.container}>
+            <AppNavigation />
+          </View>
+          <Footer />
+        </View>
+      </NavigationContainer>
+    </AuthenticationContextProvider>
   );
 }
 
@@ -22,6 +27,6 @@ const styles = StyleSheet.create({
   container: {
     padding: 12,
     flex: 1,
-    backgroundColor: '#FCE2DB',
+    backgroundColor: '#fff',
   },
 });

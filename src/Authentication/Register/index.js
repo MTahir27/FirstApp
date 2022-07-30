@@ -1,7 +1,11 @@
 import {View, Text, ScrollView, TextInput, Button} from 'react-native';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
+import {AuthenticationContext} from '../../Context/AuthenticationContext';
+import TextField from '../../Components/TextField';
+import CustomButton from '../../Components/CustomButton';
 
-export default function Register() {
+export default function Register({navigation}) {
+  const {setIsAuthenticated} = useContext(AuthenticationContext);
   const [data, setData] = useState({
     fullName: '',
     email: '',
@@ -13,32 +17,48 @@ export default function Register() {
   };
 
   const handleSubmit = () => {
-    console.log(data);
+    if (data.fullName && data.email && data.password && data.confrimPassword) {
+      if (data.password === data.confrimPassword) {
+        setIsAuthenticated(true);
+        navigation.navigate('Home');
+      } else {
+        alert('Password Not Match');
+      }
+    } else {
+      alert('Fill All Field');
+      setData(data => ({
+        ...data,
+        fullName: '',
+        email: '',
+        password: '',
+        confrimPassword: '',
+      }));
+    }
   };
   return (
     <View>
       <ScrollView>
-        <TextInput
+        <TextField
           placeholder="Full Name"
           value={data.fullName}
           onChangeText={handleChange('fullName')}
         />
-        <TextInput
+        <TextField
           placeholder="Email"
           value={data.email}
           onChangeText={handleChange('email')}
         />
-        <TextInput
+        <TextField
           placeholder="Password"
           value={data.password}
           onChangeText={handleChange('password')}
         />
-        <TextInput
+        <TextField
           placeholder="Confirm Password"
           value={data.confrimPassword}
           onChangeText={handleChange('confrimPassword')}
         />
-        <Button onPress={handleSubmit} title="Register" />
+        <CustomButton onPress={handleSubmit} title="Register" />
       </ScrollView>
     </View>
   );

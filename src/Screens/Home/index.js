@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
+import CustomButton from '../../Components/CustomButton';
 
-export default function Home() {
+export default function Home({navigation}) {
   return (
     <View style={styles.layout}>
       <Text>
@@ -10,7 +11,12 @@ export default function Home() {
         ratione architecto modi reprehenderit dicta minima voluptate ut autem
         quam.
       </Text>
-      <Button>About Us</Button>
+      <CustomButton
+        onPress={() => {
+          navigation.navigate('About');
+        }}
+        title="About Us"
+      />
     </View>
   );
 }
