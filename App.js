@@ -10,10 +10,7 @@ export default function App() {
     <AuthenticationContextProvider>
       <NavigationContainer>
         <View style={styles.pageLayout}>
-          <View style={styles.container}>
-            <AppNavigation />
-          </View>
-          <Footer />
+          <AppNavigation />
         </View>
       </NavigationContainer>
     </AuthenticationContextProvider>
