@@ -1,11 +1,19 @@
 import React, {useContext, useState} from 'react';
-import {View, ScrollView, StyleSheet, Text} from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Text,
+  ImageBackground,
+} from 'react-native';
 import CustomButton from '../../Components/CustomButton';
 import TextButton from '../../Components/TextButton';
 import TextField from '../../Components/TextField';
 import {AuthenticationContext} from '../../Context/AuthenticationContext';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import bgImg from '../../assets/images/bg-gradient.jpg';
 
+// const bgImg = {uri: 'https://reactjs.org/logo-og.png'};
 export default function Login({navigation}) {
   const {setIsAuthenticated} = useContext(AuthenticationContext);
   const [data, setData] = useState({email: '', password: ''});
@@ -24,6 +32,10 @@ export default function Login({navigation}) {
   };
   return (
     <View style={styles.pageLayout}>
+      {/* <ImageBackground
+        source={bgImg}
+        resizeMode="cover"
+        style={styles.pageLayout}> */}
       <View style={styles.container}>
         <ScrollView style={{background: 'red'}}>
           <View style={styles.paddingY}>
@@ -43,7 +55,7 @@ export default function Login({navigation}) {
             />
             <TextButton
               style={styles.passwordField.icon}
-              title={[<AntDesign name="eyeo" color="#000" />]}
+              title={[<AntDesign key="1" name="eyeo" color="#000" />]}
             />
           </View>
           <View style={(styles.paddingY, {alignItems: 'flex-end'})}>
@@ -58,7 +70,7 @@ export default function Login({navigation}) {
             <CustomButton onPress={handleSubmit} title="Login" />
           </View>
           <View style={styles.abc}>
-            <Text>Don't have an Account</Text>
+            <Text style={{marginRight: 16}}>Don't have an Account</Text>
             <TextButton
               onPress={() => {
                 navigation.navigate('Register');
@@ -68,6 +80,7 @@ export default function Login({navigation}) {
           </View>
         </ScrollView>
       </View>
+      {/* </ImageBackground> */}
     </View>
   );
 }
