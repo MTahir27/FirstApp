@@ -5,6 +5,7 @@ import TextField from '../../Components/TextField';
 import CustomButton from '../../Components/CustomButton';
 import TextButton from '../../Components/TextButton';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import auth from '@react-native-firebase/auth';
 
 export default function Register({navigation}) {
   const {setIsAuthenticated} = useContext(AuthenticationContext);
@@ -21,8 +22,26 @@ export default function Register({navigation}) {
   const handleSubmit = () => {
     if (data.fullName && data.email && data.password && data.confrimPassword) {
       if (data.password === data.confrimPassword) {
-        setIsAuthenticated(true);
-        navigation.navigate('Home');
+        auth()
+          .createUserWithEmailAndPassword(data.email, data.password)
+          .then(() => {
+            console.log('User account created & signed in!');
+            setIsAuthenticated(true);
+            navigation.navigate('Home');
+          })
+          .catch(error => {
+            if (error.code === 'auth/email-already-in-use') {
+              console.log('That email address is already in use!');
+            }
+
+            if (error.code === 'auth/invalid-email') {
+              console.log('That email address is invalid!');
+            }
+
+            console.error(error);
+          });
+        // setIsAuthenticated(true);
+        // navigation.navigate('Home');
       } else {
         alert('Password Not Match');
       }
