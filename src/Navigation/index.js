@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Home from '../Screens/Home';
@@ -12,13 +12,28 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
 export default function AppNavigation() {
-  const {isAuthenticationed} = useContext(AuthenticationContext);
+  const {isAuthenticationed, setIsAuthenticated} = useContext(
+    AuthenticationContext,
+  );
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+  function onAuthStateChanged(user) {
+    setUser(user);
+    setIsAuthenticated(true);
+    if (initializing) setInitializing(false);
+  }
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+  if (initializing) return null;
   return isAuthenticationed ? (
     <>
       {/* <Tab.Navigator

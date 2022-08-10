@@ -40,8 +40,6 @@ export default function Register({navigation}) {
 
             console.error(error);
           });
-        // setIsAuthenticated(true);
-        // navigation.navigate('Home');
       } else {
         alert('Password Not Match');
       }
